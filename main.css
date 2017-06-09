@@ -59,12 +59,15 @@ ul {
 #main-frame {
 	margin:auto;
 	margin-top:50px;
-	border:1px solid white;
+	/*border:1px solid white;*/
 	width:400px;
 	height:300px;
 }
-.click {
-	border:5px solid red;
+.active {
+	
+}
+.inactive {
+	opacity:0.5;
 }
 
 
