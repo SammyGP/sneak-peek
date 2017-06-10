@@ -32,25 +32,44 @@ ul {
 }
 
 
+#my-streamers {
+	position:absolute;
+	z-index:100;
+	/*above makes is so that li dont alter the html/page flow*/
+	margin-left:0px;
+	float:left;
+	width:200px;
+	height:400px;
+	z-index:1;
+
+}
+#my-streamers > ul {
+	display:none;
+	position:relative;
+}
+#my-streamers button {
+	border:1px solid green;
+}
 #carousel {
+	position:relative;
+	display:block;
 	border-top:1px solid white;
 	border-bottom:1px solid white;
 	height:150px;
 	margin-top:50px;
+
 }
 #carousel div {
-	margin:0px;
+	float:left;
+	position:relative;
 	display:inline-block;
 	height:150px;
-	width:14%;
+	width:14.285%;
 	overflow:hidden;
 }
 #carousel div img {
 	width:100%;
 	height:100%;
-}
-#carousel > div {
-	margin-left:-10px;
 }
 /*#carousel:hover { /* changes the video height when you hover/starts playing 
 	margin-top:100px;

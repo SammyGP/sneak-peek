@@ -5,6 +5,7 @@ var playBack = vidSource;
 // streamersArray for the featured streamers
 var streamersArray = [];
 var myStreamers = [];
+var clicks = 0;
 // object constructor for the streamers
 function Streamer(name, image, game, title, viewers, url){
 	this.name = name,
@@ -15,7 +16,13 @@ function Streamer(name, image, game, title, viewers, url){
 	this.link = vidSource + name,
 	this.home = url
 };
-
+// adds the streamer to the my streamers list
+function AddStreamer(streamer){
+		var list = document.getElementById("my-streamers-list");
+		var li = document.createElement("li");
+		li.innerHTML = streamer.name
+		list.appendChild(li)
+}
 $(document).ready(function(){
 
 	$.ajax({ // loads and array of the featured streams channel names on page load
@@ -104,19 +111,22 @@ $(document).ready(function(){
 	}
 	searchButton.onclick = function(){
 		// TODO only push the value if the streamer is found
-		// else return error
+
 		$.ajax({
 			url: "https://wind-bow.gomix.me/twitch-api/channels/" + inputBar.value,
 			method: "GET",
 			//data: {user:inputBar},
 			success: function(data){
-				//myStreamers.push(inputBar.value)
+
 				//logs if user is not found
+				// TODO make sure duplicates are not allowed
 				if (data.error){
 					console.log("user not found");
 					alert("User not found");
 				} else {
 					myStreamers.push(new Streamer(data.name, data.logo, data.game, data.status, data.views, data.url))
+					AddStreamer(data)
+
 				}
 				console.log(data);
 			},
@@ -127,7 +137,17 @@ $(document).ready(function(){
 		console.log("done")
 	};
 	//listens for a input field change (NOTE even if its not submited)
+	// TODO create a new list with my favorite streamers (myStreamers) that updates itself with the streamers added
 	window.addEventListener("change", function(e){
 		console.log("load something");
 	});
+	//function do display the myStreamers list
+	document.getElementById("my-streamers-button").onclick = function(){
+		clicks++;
+		if ((clicks % 2) === 0) {
+			document.getElementById("my-streamers-list").style.display = "none";
+		} else {
+			document.getElementById("my-streamers-list").style.display = "block";
+		};
+	}
 }) // end of docready
