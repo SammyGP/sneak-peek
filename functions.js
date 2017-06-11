@@ -6,7 +6,7 @@ var playBack = vidSource;
 var streamersArray = [];
 var myStreamers = [];
 var clicks = 0;
-// object constructor for the streamers
+// object constructor/factory for the streamers
 function Streamer(name, image, game, title, viewers, url){
 	this.name = name,
 	this.image = image,
