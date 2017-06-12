@@ -6,7 +6,7 @@ var playBack = vidSource;
 var streamersArray = [];
 var myStreamers = [];
 var clicks = 0;
-// object constructor for the streamers
+// object constructor/factory for the streamers
 function Streamer(name, image, game, title, viewers, url){
 	this.name = name,
 	this.image = image,
@@ -16,7 +16,14 @@ function Streamer(name, image, game, title, viewers, url){
 	this.link = vidSource + name,
 	this.home = url
 };
-// adds the streamer to the my streamers list
+
+// play streamer function
+function PlayStreamer(arg){
+	var mainPlayer = document.getElementById("main-player");
+	channel = arg.name;
+	mainPlayer.setAttribute("src", vidSource + channel)
+}
+// adds the streamer to the my streamers <li>
 function AddStreamer(streamer){
 		var list = document.getElementById("my-streamers-list");
 		var li = document.createElement("li");
@@ -45,6 +52,7 @@ $(document).ready(function(){
 			console.log(error)
 		}
 	}); // end of first ajax
+
 	// when ajax is done appends the 
 	$(document).ajaxComplete(function(){
 		var carouselImages = document.getElementById("carousel").childNodes
@@ -71,14 +79,17 @@ $(document).ready(function(){
 		carouselImages[13].childNodes[0].setAttribute("src", streamersArray[6].image)
 		carouselImages[13].childNodes[0].setAttribute("name", streamersArray[6].name)
 	})
+
 	// listens for a click event
 	window.addEventListener('click',function(e){
+		console.log(e)
 		// gets the iframe player
 		var mainPlayer = document.getElementById("main-player");
 		//mainPlayer.classList.add("click")
 		// checks to see if the click event has a name attribute
 		//console.log(e)
 		if (e.path[2].id == "carousel"){// makes sure the click is within the carousel
+
 			channel = e.target["name"]//saves the sceens name as channel
 			// if it does sets the name as part of the streamer name and plays it
 			mainPlayer.setAttribute("src", vidSource + channel)
@@ -88,10 +99,15 @@ $(document).ready(function(){
 			$(e.path[1]).addClass("active").removeClass("inactive").siblings().removeClass("active").addClass("inactive");
 
 			//e.target.classList.add("active")
+		} else if (e.path[2].id == "my-streamers") {
+			var target = e.target.innerText;
+			mainPlayer.setAttribute("src", vidSource + target)
+
 		} else {// if not exits
 			return
 		}
 	})
+
 	var mainPlayer = document.getElementById("main-player");
 	mainPlayer.addEventListener("load",function(e){
 		console.log("Loaded")
@@ -100,18 +116,20 @@ $(document).ready(function(){
 			marginLeft:'-=100px',
 			width:"+=200px"
 		});
+
 		// makes sure the event can only trigger once preventing the window from continiously growing
 		e.target.removeEventListener(e.type,arguments.callee);	
 	})
+
+
 	var searchButton = document.getElementById("search-button");
 	var inputBar = document.getElementById("search-query")
+
 	// clears the searchbarch each time its clicked
 	inputBar.onclick = function(){
 		inputBar.value = ""
 	}
 	searchButton.onclick = function(){
-		// TODO only push the value if the streamer is found
-
 		$.ajax({
 			url: "https://wind-bow.gomix.me/twitch-api/channels/" + inputBar.value,
 			method: "GET",
@@ -124,8 +142,9 @@ $(document).ready(function(){
 					console.log("user not found");
 					alert("User not found");
 				} else {
-					myStreamers.push(new Streamer(data.name, data.logo, data.game, data.status, data.views, data.url))
-					AddStreamer(data)
+					myStreamers.push(new Streamer(data.name, data.logo, data.game, data.status, data.views, data.url));
+					AddStreamer(data);
+					PlayStreamer(data)
 
 				}
 				console.log(data);
@@ -141,6 +160,7 @@ $(document).ready(function(){
 	window.addEventListener("change", function(e){
 		console.log("load something");
 	});
+
 	//function do display the myStreamers list
 	document.getElementById("my-streamers-button").onclick = function(){
 		clicks++;
@@ -150,4 +170,5 @@ $(document).ready(function(){
 			document.getElementById("my-streamers-list").style.display = "block";
 		};
 	}
+
 }) // end of docready

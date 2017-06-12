@@ -50,6 +50,10 @@ ul {
 #my-streamers button {
 	border:1px solid green;
 }
+#my-streamers ul li{
+	border:1px solid green;
+	width:100%;
+}
 #carousel {
 	position:relative;
 	display:block;
