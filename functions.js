@@ -32,11 +32,11 @@ function AddStreamer(streamer){
 };
 // filter/search function
 function FindStreamer(arr, name) {
-	arr.find(function(arg){
+	arr.find(function(streamer){
 
 		//makes sure to only return the object that matches the name
-		if(arg.name === name) {
-			PlayStreamer(arg);
+		if(streamer.name === name) {
+			PlayStreamer(streamer);
 		};
 	});
 };
@@ -96,21 +96,18 @@ $(document).ready(function(){
 		console.log(e)
 		// gets the iframe player
 		var mainPlayer = document.getElementById("main-player");
-		//mainPlayer.classList.add("click")
+
 		// checks to see if the click event has a name attribute
-		//console.log(e)
 		if (e.path[2].id == "carousel"){// makes sure the click is within the carousel
 
 			channel = e.target["name"]//saves the sceens name as channel
-			// if it does sets the name as part of the streamer name and plays it
-			mainPlayer.setAttribute("src", vidSource + channel)
 
 			FindStreamer(streamersArray, channel)
 
-			var target = e.target
+
+			// set the active/inactive effect for the clicked image/object and removes it from the siblings
 			$(e.path[1]).addClass("active").removeClass("inactive").siblings().removeClass("active").addClass("inactive");
 
-			//e.target.classList.add("active")
 		} else if (e.path[2].id == "my-streamers") {
 			var target = e.target.innerText;
 			FindStreamer(myStreamers, target)
@@ -130,7 +127,7 @@ $(document).ready(function(){
 		});
 
 		// makes sure the event can only trigger once preventing the window from continiously growing
-		e.target.removeEventListener(e.type,arguments.callee);	
+		e.target.removeEventListener(e.type, arguments.callee);	
 	})
 
 
@@ -138,10 +135,10 @@ $(document).ready(function(){
 	var inputBar = document.getElementById("search-query")
 
 	// clears the searchbarch each time its clicked
-	inputBar.onclick = function(){
+	inputBar.onclick = function() {
 		inputBar.value = ""
 	}
-	searchButton.onclick = function(){
+	searchButton.onclick = function() {
 		$.ajax({
 			url: "https://wind-bow.gomix.me/twitch-api/channels/" + inputBar.value,
 			method: "GET",
@@ -173,7 +170,7 @@ $(document).ready(function(){
 		console.log("load something");
 	});
 
-	//function do display the myStreamers list
+	//function do display/hide the myStreamers list
 	document.getElementById("my-streamers-button").onclick = function(){
 		clicks++;
 		if ((clicks % 2) === 0) {
@@ -182,5 +179,9 @@ $(document).ready(function(){
 			document.getElementById("my-streamers-list").style.display = "block";
 		};
 	}
+
+// TODO add the ability to see if a streamer is online (think a green circle vs a red circle?)
+
+
 
 }) // end of docready

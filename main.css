@@ -3,6 +3,7 @@ body {
 	color:white;
 	margin:0px;
 	text-align:center;
+	height:2048px;
 }
 nav {
 	width:100%;
@@ -31,7 +32,7 @@ ul {
 	padding-right:10px;
 }
 
-
+/* my list css */
 #my-streamers {
 	position:absolute;
 	z-index:100;
@@ -48,12 +49,18 @@ ul {
 	position:relative;
 }
 #my-streamers button {
+	width:100%;
 	border:1px solid green;
 }
 #my-streamers ul li{
-	border:1px solid green;
+	/*border:1px solid green;*/
 	width:100%;
 }
+#my-streamers-list {
+	border:1px solid green;
+}
+
+/* carousel css */
 #carousel {
 	position:relative;
 	display:block;
