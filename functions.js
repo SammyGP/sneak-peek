@@ -170,5 +170,9 @@ $(document).ready(function(){
 			document.getElementById("my-streamers-list").style.display = "block";
 		};
 	}
+<<<<<<< HEAD
 
 }) // end of docready
+=======
+}) // end of docready
+>>>>>>> 9eb0e1b847faa2dac386e58018847e2fc6fc5028
