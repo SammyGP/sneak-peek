@@ -1,5 +1,5 @@
 
-var vidSource// = "http://player.twitch.tv/?channel=";
+var vidSource //= "http://player.twitch.tv/?channel=";
 var channel = "";
 var playBack = vidSource;
 // streamersArray for the featured streamers
@@ -27,9 +27,20 @@ function PlayStreamer(arg){
 function AddStreamer(streamer){
 		var list = document.getElementById("my-streamers-list");
 		var li = document.createElement("li");
-		li.innerHTML = streamer.name
-		list.appendChild(li)
-}
+		li.innerHTML = streamer.name;
+		list.appendChild(li);
+};
+// filter/search function
+function FindStreamer(arr, name) {
+	arr.find(function(arg){
+
+		//makes sure to only return the object that matches the name
+		if(arg.name === name) {
+			PlayStreamer(arg);
+		};
+	});
+};
+
 $(document).ready(function(){
 
 	$.ajax({ // loads and array of the featured streams channel names on page load
@@ -93,7 +104,8 @@ $(document).ready(function(){
 			channel = e.target["name"]//saves the sceens name as channel
 			// if it does sets the name as part of the streamer name and plays it
 			mainPlayer.setAttribute("src", vidSource + channel)
-			// TODO fix add class so it removes the class when you select a new portrait
+
+			FindStreamer(streamersArray, channel)
 
 			var target = e.target
 			$(e.path[1]).addClass("active").removeClass("inactive").siblings().removeClass("active").addClass("inactive");
@@ -101,7 +113,7 @@ $(document).ready(function(){
 			//e.target.classList.add("active")
 		} else if (e.path[2].id == "my-streamers") {
 			var target = e.target.innerText;
-			mainPlayer.setAttribute("src", vidSource + target)
+			FindStreamer(myStreamers, target)
 
 		} else {// if not exits
 			return
@@ -170,9 +182,5 @@ $(document).ready(function(){
 			document.getElementById("my-streamers-list").style.display = "block";
 		};
 	}
-<<<<<<< HEAD
 
 }) // end of docready
-=======
-}) // end of docready
->>>>>>> 9eb0e1b847faa2dac386e58018847e2fc6fc5028
