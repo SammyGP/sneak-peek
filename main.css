@@ -32,6 +32,7 @@ ul {
 	padding-right:10px;
 }
 
+
 /* my list css */
 #my-streamers {
 	position:absolute;
@@ -45,7 +46,6 @@ ul {
 
 }
 #my-streamers > ul {
-	display:none;
 	position:relative;
 }
 #my-streamers button {
@@ -59,7 +59,19 @@ ul {
 #my-streamers-list {
 	border:1px solid green;
 }
-
+span {
+	height:10px;
+	background-color:red;
+	width:10px;
+	float:right;
+	border-radius:100%;
+}
+.online {
+	background-color:green;
+}
+.closed {
+	background-color:#333;
+}
 /* carousel css */
 #carousel {
 	position:relative;

@@ -6,6 +6,18 @@ var playBack = vidSource;
 var streamersArray = [];
 var myStreamers = [];
 var clicks = 0;
+/*
+// streaming state
+function state(arg){
+		if (arg.stream === null) {
+			arg.state = "state.offline;"
+		} else if (arg.stream === undefined) {
+			arg.state = "state.closed"
+		} else {
+			arg.state = "state.online"
+		}
+	}
+*/
 // object constructor/factory for the streamers
 function Streamer(name, image, game, title, viewers, url){
 	this.name = name,
@@ -15,21 +27,59 @@ function Streamer(name, image, game, title, viewers, url){
 	this.viewers = viewers,
 	this.link = vidSource + name,
 	this.home = url
-};
+	};
 
 // play streamer function
 function PlayStreamer(arg){
-	var mainPlayer = document.getElementById("main-player");
-	channel = arg.name;
-	mainPlayer.setAttribute("src", vidSource + channel)
-}
+	if (arg.state !== "Online") {
+
+	} else {
+		var mainPlayer = document.getElementById("main-player");
+		channel = arg.name;
+		mainPlayer.setAttribute("src", vidSource + channel)
+	}
+};
+
 // adds the streamer to the my streamers <li>
-function AddStreamer(streamer){
+function AddStreamer(arg){
+
+	//  checks if streams is offline
+	// and sets the circle span class acordingly
+	$.get("https://wind-bow.gomix.me/twitch-api/streams/" + arg.name, function(data){
+
+		if (data.stream === null) {
+			myStreamers.filter(function(x){
+				if(x.name === arg.name) {
+					x["state"] = "Offline";
+				};
+			});
+		} else if (data.stream === undefined) {
+			myStreamers.filter(function(x){
+				if(x.name === arg.name) {
+					x["state"] = "Closed";
+					span.className = "closed";
+				};
+			});
+		} else {
+			myStreamers.filter(function(x){
+				if(x.name === arg.name) {
+					x["state"] = "Online";
+					span.className = "online";
+				};
+			});
+		};
+	});
+
+		// appends the streamer names to the list
 		var list = document.getElementById("my-streamers-list");
 		var li = document.createElement("li");
-		li.innerHTML = streamer.name;
+		var span = document.createElement("span");
+		span.innerHTML = " ";
+		li.innerHTML = arg.name;
+		li.appendChild(span);
 		list.appendChild(li);
 };
+
 // filter/search function
 function FindStreamer(arr, name) {
 	arr.find(function(streamer){
@@ -40,7 +90,6 @@ function FindStreamer(arr, name) {
 		};
 	});
 };
-
 $(document).ready(function(){
 
 	$.ajax({ // loads and array of the featured streams channel names on page load
@@ -93,7 +142,6 @@ $(document).ready(function(){
 
 	// listens for a click event
 	window.addEventListener('click',function(e){
-		console.log(e)
 		// gets the iframe player
 		var mainPlayer = document.getElementById("main-player");
 
@@ -144,25 +192,25 @@ $(document).ready(function(){
 			method: "GET",
 			//data: {user:inputBar},
 			success: function(data){
-
 				//logs if user is not found
 				// TODO make sure duplicates are not allowed
 				if (data.error){
 					console.log("user not found");
 					alert("User not found");
 				} else {
-					myStreamers.push(new Streamer(data.name, data.logo, data.game, data.status, data.views, data.url));
-					AddStreamer(data);
-					PlayStreamer(data)
+					var streamerData = new Streamer(data.name, data.logo, data.game, data.state, data.views, data.url)
 
-				}
-				console.log(data);
+					myStreamers.push(streamerData);
+					AddStreamer(streamerData);
+					PlayStreamer(streamerData);
+
+				};
+				//console.log(myStreamers);
 			},
 			error: function(error){
 				console.log(error);
 			}
 		})
-		console.log("done")
 	};
 	//listens for a input field change (NOTE even if its not submited)
 	// TODO create a new list with my favorite streamers (myStreamers) that updates itself with the streamers added
@@ -173,7 +221,7 @@ $(document).ready(function(){
 	//function do display/hide the myStreamers list
 	document.getElementById("my-streamers-button").onclick = function(){
 		clicks++;
-		if ((clicks % 2) === 0) {
+		if ((clicks % 2) !== 0) {
 			document.getElementById("my-streamers-list").style.display = "none";
 		} else {
 			document.getElementById("my-streamers-list").style.display = "block";
@@ -181,7 +229,6 @@ $(document).ready(function(){
 	}
 
 // TODO add the ability to see if a streamer is online (think a green circle vs a red circle?)
-
 
 
 }) // end of docready
