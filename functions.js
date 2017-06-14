@@ -42,7 +42,14 @@ function PlayStreamer(arg){
 
 // adds the streamer to the my streamers <li>
 function AddStreamer(arg){
-
+		// appends the streamer names to the list
+		var list = document.getElementById("my-streamers-list");
+		var li = document.createElement("li");
+		var span = document.createElement("span");
+		span.innerHTML = " ";
+		li.innerHTML = arg.name;
+	/*	li.appendChild(span);
+		list.appendChild(li);*/
 	//  checks if streams is offline
 	// and sets the circle span class acordingly
 	$.get("https://wind-bow.gomix.me/twitch-api/streams/" + arg.name, function(data){
@@ -51,33 +58,34 @@ function AddStreamer(arg){
 			myStreamers.filter(function(x){
 				if(x.name === arg.name) {
 					x["state"] = "Offline";
+					li.innerHTML = arg.name;
+					li.appendChild(span);
+					list.appendChild(li);
 				};
 			});
 		} else if (data.stream === undefined) {
 			myStreamers.filter(function(x){
 				if(x.name === arg.name) {
 					x["state"] = "Closed";
+					li.innerHTML = arg.name;
+					li.appendChild(span);
 					span.className = "closed";
+		list.appendChild(li);
 				};
 			});
 		} else {
 			myStreamers.filter(function(x){
 				if(x.name === arg.name) {
 					x["state"] = "Online";
+					li.innerHTML = arg.name;
+					li.appendChild(span);
+					list.appendChild(li);
 					span.className = "online";
 				};
 			});
 		};
 	});
 
-		// appends the streamer names to the list
-		var list = document.getElementById("my-streamers-list");
-		var li = document.createElement("li");
-		var span = document.createElement("span");
-		span.innerHTML = " ";
-		li.innerHTML = arg.name;
-		li.appendChild(span);
-		list.appendChild(li);
 };
 
 // filter/search function
@@ -199,7 +207,6 @@ $(document).ready(function(){
 					alert("User not found");
 				} else {
 					var streamerData = new Streamer(data.name, data.logo, data.game, data.state, data.views, data.url)
-
 					myStreamers.push(streamerData);
 					AddStreamer(streamerData);
 					PlayStreamer(streamerData);
