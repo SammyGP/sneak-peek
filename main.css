@@ -1,20 +1,44 @@
+/*
+primary color:#212121;
+	light:#484848;
+	dark:#000000;
+	text:#ffffff;
+secondary-color:#64dd17;
+	light:#9cff57;
+	dark:#1faa00;
+	text:#000000;
+
+
+*/
 body {
-	background-color:black;
-	color:white;
+	background-color:#1b5e20;
+	color:#64dd17;
 	margin:0px;
 	text-align:center;
 	height:2048px;
+	text-shadow:1px 1px black;
 }
 header {
-	height:100vh;
-	background-image:url("http://i.imgur.com/h0X3vD0.jpg");
+	color:#ffffff;
+	background-color:#003300;;
+	height:99.7vh;
 	opacity:0.7;
+	border-bottom:2px solid #64dd17;
+	box-shadow:2px 0px #1faa00;
+}
+
+header > p {
+	margin:auto;
+	opacity:0.3;
 }
 nav {
+	background-color:rgba(0,0,0,0.8);
+	box-shadow:1px 1px black;
+	position:absolute;
+	top:20%;
 	width:100%;
-	height:80px;
-	border-bottom:2px solid white;
-	z-index:1;
+	height:100px;
+	z-index:100;
 }
 nav > h2 {
 	display:inline;
@@ -38,13 +62,67 @@ ul {
 	padding-right:10px;
 }
 
-
+/* slideshow css */
+#slideshow-container {
+	position:relative;
+	height:99vh;
+	width:100%
+}
+.slides {
+	z-index:-1;
+	position:absolute;
+	top:0px;
+	left:0px;
+	display:none;
+	height:99vh;
+	width:100%;
+}
+.slides > div {
+	top:0px;
+}
+.slides img {
+	width:100%;
+	height:100%;
+	opacity:0.8;
+}
+.prev, .next {
+	cursor:pointer;
+	width:auto;
+	position:absolute;
+	top:49vh; /* aligns verticaly to 40% of the screen position */
+	margin-top:20px;
+	border-radius: 0 3px 3px 0;
+	transition: 0.6s ease;
+}
+.next {
+	right:10px;
+}
+.prev {
+	left:10px;
+}
+.prev:hover, .next:hover {
+	background-color: rgba(0,0,0,0.8);
+}
+.image-name {
+	color: #f2f2f2;
+	position:absolute;
+	bottom:10px;
+	text-align:center;
+	width:100%;
+}
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
 /* my list css */
 #my-streamers {
 	position:absolute;
 	z-index:100;
 	/*above makes is so that li dont alter the html/page flow*/
-	margin-left:0px;
+	margin-top:5px;
+	margin-left:1px;
 	float:left;
 	width:200px;
 	height:400px;
@@ -53,17 +131,21 @@ ul {
 }
 #my-streamers > ul {
 	position:relative;
+	margin-left:5px;
 }
 #my-streamers button {
+	background-color:#212121;
+	color:#ffffff;
 	width:100%;
-	border:1px solid green;
+	border:1px solid #1faa00;
 }
 #my-streamers ul li{
 	/*border:1px solid green;*/
+	color:#ffffff;
 	width:100%;
 }
 #my-streamers-list {
-	border:1px solid green;
+	border:2px solid #1faa00;
 }
 span {
 	height:10px;
@@ -82,8 +164,8 @@ span {
 #carousel {
 	position:relative;
 	display:block;
-	border-top:1px solid white;
-	border-bottom:1px solid white;
+	border-top:2px solid #9cff57;
+	border-bottom:3px solid #1faa00;
 	height:150px;
 	margin-top:50px;
 
@@ -112,7 +194,7 @@ span {
 	height:300px;
 }
 .active {
-	
+	size:1.1;
 }
 .inactive {
 	opacity:0.5;

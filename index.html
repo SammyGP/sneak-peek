@@ -16,13 +16,49 @@
 
 <body>
 	<header>
-		<nav>
-			<h1>Sneak Peek</h1>
-			<h2>ee</h2>
-
+		<div id="slideshow-container">
+			<nav>
+				<h1>Sneak Peek</h1>
 				<input type="text" value="Search for streamer" id="search-query" />
 				<input type="submit" value="Search" id="search-button" />
-		</nav>
+			</nav>			
+			<div class="slides fade">
+				<img name="" src="" />
+			</div>
+
+			<div class="slides fade">
+				<img name="" src="" />
+				<div class="image-name"></div>
+			</div>
+
+			<div class="slides fade">
+				<img name="" src="" />
+				<div class="image-name"></div>
+			</div>
+
+			<div class="slides fade">
+				<img name="" src="" />
+				<div class="image-name"></div>
+			</div>
+
+			<div class="slides fade">
+				<img name="" src="" />
+				<div class="image-name"></div>
+			</div>
+
+			<div class="slides fade">
+				<img name="" src="" />
+				<div class="image-name"></div>
+			</div>
+
+			<div class="slides fade">
+				<img name="" src="" />
+				<div class="image-name"></div>
+			</div>
+
+			<a class="prev" onclick="plusSlides(-1)">&#10094</a>
+			<a class="next" onclick="plusSlides(1)">&#10095</a>
+		</div>
 	</header>
 <!--
 create a carousel that creates divs with the <video> tag

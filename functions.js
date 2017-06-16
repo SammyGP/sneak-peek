@@ -1,5 +1,5 @@
 
-var vidSource //= "http://player.twitch.tv/?channel=";
+var vidSource // = "http://player.twitch.tv/?channel=";
 var channel = "";
 var playBack = vidSource;
 // streamersArray for the featured streamers
@@ -31,13 +31,11 @@ function Streamer(name, image, game, title, viewers, url){
 
 // play streamer function
 function PlayStreamer(arg){
-	if (arg.state !== "Online") {
 
-	} else {
 		var mainPlayer = document.getElementById("main-player");
 		channel = arg.name;
 		mainPlayer.setAttribute("src", vidSource + channel)
-	}
+
 };
 
 // adds the streamer to the my streamers <li>
@@ -85,7 +83,6 @@ function AddStreamer(arg){
 			});
 		};
 	});
-
 };
 
 // filter/search function
@@ -98,6 +95,34 @@ function FindStreamer(arr, name) {
 		};
 	});
 };
+
+// shlideshow function
+var slideIndex = 0;
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+function showSlides(){
+	var i;
+	var slides = document.getElementsByClassName("slides");
+	for(i = 0; i < slides.length; i++) {
+		slides[i].style.display = "none";
+	};
+	slideIndex++;
+	if(slideIndex > slides.length) {
+		slideIndex = 1;
+	};
+	var slideImage = slides[slideIndex-1].getElementsByTagName("img");
+	slideImage[0].setAttribute("src", streamersArray[slideIndex-1].image)
+
+	var slideName = slides[slideIndex-1].getElementsByClassName("number");
+	//slideName[0].innerHTML = streamersArray[slideIndex-1].name;
+
+	slides[slideIndex-1].style.display = "block";
+	console.log(streamersArray[slideIndex-1].name)
+	console.log(slideImage)
+	setTimeout(showSlides, 5000);
+}
+
 $(document).ready(function(){
 
 	$.ajax({ // loads and array of the featured streams channel names on page load
@@ -123,6 +148,7 @@ $(document).ready(function(){
 
 	// when ajax is done appends the 
 	$(document).ajaxComplete(function(){
+		showSlides();
 		var carouselImages = document.getElementById("carousel").childNodes
 		// sets the images of the smaller items
 		// also sets the names for the onclick function
@@ -148,6 +174,10 @@ $(document).ready(function(){
 		carouselImages[13].childNodes[0].setAttribute("name", streamersArray[6].name)
 	})
 
+// slideshow functionality
+
+
+
 	// listens for a click event
 	window.addEventListener('click',function(e){
 		// gets the iframe player
@@ -156,13 +186,13 @@ $(document).ready(function(){
 		// checks to see if the click event has a name attribute
 		if (e.path[2].id == "carousel"){// makes sure the click is within the carousel
 
+			// set the active/inactive effect for the clicked image/object and removes it from the siblings
+			$(e.path[1]).addClass("active").removeClass("inactive").siblings().removeClass("active").addClass("inactive");
 			channel = e.target["name"]//saves the sceens name as channel
 
 			FindStreamer(streamersArray, channel)
+			PlayStreamer(e.target[name])
 
-
-			// set the active/inactive effect for the clicked image/object and removes it from the siblings
-			$(e.path[1]).addClass("active").removeClass("inactive").siblings().removeClass("active").addClass("inactive");
 
 		} else if (e.path[2].id == "my-streamers") {
 			var target = e.target.innerText;
