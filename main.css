@@ -214,6 +214,10 @@ span {;
 	z-index:100;
 }
 .inactive {
+	color:#1faa00;
+	opacity:0.5;
+}
+#remove-me {
 	opacity:0.5;
 }
 

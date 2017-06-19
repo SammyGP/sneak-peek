@@ -1,5 +1,5 @@
 
-var vidSource // = "http://player.twitch.tv/?channel=";
+var vidSource = "http://player.twitch.tv/?channel=";
 var channel = "";
 var playBack = vidSource;
 // streamersArray for the featured streamers
@@ -46,12 +46,9 @@ function AddStreamer(arg){
 		var span = document.createElement("span");
 		span.innerHTML = " ";
 		li.innerHTML = arg.name;
-	/*	li.appendChild(span);
-		list.appendChild(li);*/
 	//  checks if streams is offline
 	// and sets the circle span class acordingly
 	$.get("https://wind-bow.gomix.me/twitch-api/streams/" + arg.name, function(data){
-
 		if (data.stream === null) {
 			myStreamers.filter(function(x){
 				if(x.name === arg.name) {
@@ -181,17 +178,22 @@ $(document).ready(function(){
 		if (e.path[2].id == "carousel"){// makes sure the click is within the carousel
 
 			// set the active/inactive effect for the clicked image/object and removes it from the siblings
+			$(".active").addClass("inactive").removeClass("active")
 			$(e.path[1]).addClass("active").removeClass("inactive").siblings().removeClass("active").addClass("inactive");
 			channel = e.target["name"]//saves the sceens name as channel
 
 			FindStreamer(streamersArray, channel)
 			PlayStreamer(e.target[name])
 
-
+			// listens if the click is within my streamers list
 		} else if (e.path[2].id == "my-streamers") {
+			console.log(e)
 			var target = e.target.innerText;
 			FindStreamer(myStreamers, target)
-			$(".active").addClass("inactive").removeClass("active")
+			if (e.path[0].localName === "li") {
+				$(".active").addClass("inactive").removeClass("active")
+				$(e.path[0]).addClass("active").removeClass("inactive").siblings().removeClass("active").addClass("inactive");
+			}
 
 		} else {// if not exits
 			return
@@ -236,6 +238,11 @@ $(document).ready(function(){
 					AddStreamer(streamerData);
 					PlayStreamer(streamerData);
 
+					// removes the example li from my streamer list
+					var removeMe = document.getElementById("remove-me");
+					if (removeMe) {
+						removeMe.parentNode.removeChild(removeMe);
+					}
 					// scroll into view
 					document.getElementById("my-streamers").scrollIntoView({behavior: "smooth"});
 				};
