@@ -1,5 +1,5 @@
 
-var vidSource = "http://player.twitch.tv/?channel=";
+var vidSource = "https://player.twitch.tv/?channel=";
 var channel = "";
 var playBack = vidSource;
 // streamersArray for the featured streamers
