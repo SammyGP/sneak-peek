@@ -37,30 +37,23 @@ nav {
 	position:absolute;
 	top:20%;
 	width:100%;
-	height:100px;
+	height:25%;
 	z-index:100;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-nav > h2 {
-	display:inline;
-	float:left;
-	position:relative;
-	bottom:15px;
-	left:10px;
+nav > h1 {
+	font-size:200%;
+	text-transform:uppercase;
+	letter-spacing:0.1em;
+	word-spacing:0.2em;
+	margin-bottom:0px;
 }
-ul, li {
-	display:inline-block;
-	padding:0px 5px 0px 5px;
+nav p {
+	font-size:90%;
+	color:rgba(0,0,0,0.6)
+	margin:5px;
 }
-ul > li > button {
-	background-color:red;
-	margin:0px;
-}
-ul {
-	position:absolute;
-	right:10px;
-	top:4%;
-	padding-right:10px;
-}
+
 
 /* slideshow css */
 #slideshow-container {
@@ -85,11 +78,13 @@ ul {
 	height:100%;
 	opacity:0.8;
 }
+
+/* enable if pointers are wanted
 .prev, .next {
 	cursor:pointer;
 	width:auto;
 	position:absolute;
-	top:49vh; /* aligns verticaly to 40% of the screen position */
+	top:49vh; /* aligns verticaly to 40% of the screen position 
 	margin-top:20px;
 	border-radius: 0 3px 3px 0;
 	transition: 0.6s ease;
@@ -103,6 +98,7 @@ ul {
 .prev:hover, .next:hover {
 	background-color: rgba(0,0,0,0.8);
 }
+*/
 .image-name {
 	color: #f2f2f2;
 	position:absolute;
@@ -116,6 +112,16 @@ ul {
   animation-name: fade;
   animation-duration: 1.5s;
 }
+@-webkit-keyframes fade {
+  from {opacity: 0.4} 
+  to {opacity: 0.8}
+}
+
+@keyframes fade {
+  from {opacity: 0.4} 
+  to {opacity: 0.8}
+}
+
 /* my list css */
 #my-streamers {
 	position:absolute;
@@ -130,24 +136,32 @@ ul {
 
 }
 #my-streamers > ul {
+	list-style-type: none;
+	padding:0;
+	margin:0;
 	position:relative;
-	margin-left:5px;
 }
 #my-streamers button {
 	background-color:#212121;
 	color:#ffffff;
 	width:100%;
-	border:1px solid #1faa00;
+	border:2px solid #1faa00;
+	border-radius:5px;
 }
 #my-streamers ul li{
 	/*border:1px solid green;*/
 	color:#ffffff;
 	width:100%;
 }
+li:hover {
+	box-shadow: 0 0 10px black;
+}
 #my-streamers-list {
 	border:2px solid #1faa00;
+	border-radius:5px;
+	box-shadow: 0 0 10px black;
 }
-span {
+span {;
 	height:10px;
 	background-color:red;
 	width:10px;
@@ -160,6 +174,7 @@ span {
 .closed {
 	background-color:#333;
 }
+
 /* carousel css */
 #carousel {
 	position:relative;
@@ -168,7 +183,7 @@ span {
 	border-bottom:3px solid #1faa00;
 	height:150px;
 	margin-top:50px;
-
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 #carousel div {
 	float:left;
@@ -194,7 +209,9 @@ span {
 	height:300px;
 }
 .active {
-	size:1.1;
+	transform:scale(1.1);
+	box-shadow: 0 0 10px black;
+	z-index:100;
 }
 .inactive {
 	opacity:0.5;

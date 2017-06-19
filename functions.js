@@ -96,7 +96,7 @@ function FindStreamer(arr, name) {
 	});
 };
 
-// shlideshow function
+// slideshow function
 var slideIndex = 0;
 function plusSlides(n) {
   showSlides(slideIndex += n);
@@ -114,12 +114,10 @@ function showSlides(){
 	var slideImage = slides[slideIndex-1].getElementsByTagName("img");
 	slideImage[0].setAttribute("src", streamersArray[slideIndex-1].image)
 
-	var slideName = slides[slideIndex-1].getElementsByClassName("number");
+	//var slideName = slides[slideIndex-1].getElementsByClassName("number");
 	//slideName[0].innerHTML = streamersArray[slideIndex-1].name;
 
 	slides[slideIndex-1].style.display = "block";
-	console.log(streamersArray[slideIndex-1].name)
-	console.log(slideImage)
 	setTimeout(showSlides, 5000);
 }
 
@@ -174,10 +172,6 @@ $(document).ready(function(){
 		carouselImages[13].childNodes[0].setAttribute("name", streamersArray[6].name)
 	})
 
-// slideshow functionality
-
-
-
 	// listens for a click event
 	window.addEventListener('click',function(e){
 		// gets the iframe player
@@ -197,6 +191,7 @@ $(document).ready(function(){
 		} else if (e.path[2].id == "my-streamers") {
 			var target = e.target.innerText;
 			FindStreamer(myStreamers, target)
+			$(".active").addClass("inactive").removeClass("active")
 
 		} else {// if not exits
 			return
@@ -241,7 +236,10 @@ $(document).ready(function(){
 					AddStreamer(streamerData);
 					PlayStreamer(streamerData);
 
+					// scroll into view
+					document.getElementById("my-streamers").scrollIntoView({behavior: "smooth"});
 				};
+				$(".active").addClass("inactive").removeClass("active")
 				//console.log(myStreamers);
 			},
 			error: function(error){
