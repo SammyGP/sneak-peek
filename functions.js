@@ -124,6 +124,7 @@ $(document).ready(function(){
 		dataType: "JSON",
 		url: "https://wind-bow.gomix.me/twitch-api/streams/featured",
 		method: "GET",
+		dataType: "jsonp",
 		success: function(data){
 			console.log(data)
 			var streamLink = data.featured[0].stream.channel.name;
