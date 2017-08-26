@@ -226,6 +226,7 @@ $(document).ready(function(){
 		$.ajax({
 			url: "https://wind-bow.gomix.me/twitch-api/channels/" + inputBar.value,
 			method: "GET",
+			dataType: "jsonp",
 			//data: {user:inputBar},
 			success: function(data){
 				//logs if user is not found
